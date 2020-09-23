@@ -4,7 +4,9 @@ const port = 8080;
 
 const products = require('./router/products')
 
-
+app.get('/' , (req ,res) =>{
+    res.send('Server Root')
+})
 app.get('/api', (req, res) => {
     res.send('Hello World')
 })
