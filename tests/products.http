@@ -1,0 +1,104 @@
+###
+GET {{host}}/api/products
+Content-Type: application/json
+
+> {% client.test("List of products received successfully", function(){
+    client.assert(response.status !== 404, "Page does not exist")
+    client.assert(response.status !== 503, "Server cannot handle the request")
+}); %}
+
+###
+GET {{host}}/api/products/1
+Content-Type: application/json
+
+> {%
+//
+client.test('product with chosen id has been retrieved successfully', function(){
+    client.assert(response.status !== 404, 'Product with given ID does not exist')
+});
+client.test('This product does have all his properties', function (){
+    client.assert(response.status !== 422, 'Product with given ID has 1 or more missing properties')
+});
+client.test('This product does not have empty properties', function (){
+    client.assert(response.status !== 412, 'Product with given ID has 1 or more empty properties')
+})
+client.test('ID of the product is equal to response', function (){
+    client.assert(response.body.id === '1', 'ID did not match products ID')
+})
+client.test('Name of the product is equal to response', function (){
+    client.assert(response.body.name === 'Nike', 'Name did not match products name')
+})
+client.test('Size of the product is equal to response', function (){
+    client.assert(response.body.size === '11', 'Size did not match products size')
+})
+client.test('Category of the product is equal to response', function (){
+    client.assert(response.body.category === 'shoes', 'Category did not match products category')
+})
+client.test('Auction end of the product is equal to response', function (){
+    client.assert(response.body.auction_end === '2020/11/1-12:00', 'Auction end date did not match products auction end date')
+})
+client.test('Bids of the product is equal to response', function (){
+    client.log(response.body.bids[0].name);
+    client.assert(response.body.bids[0].bid_name === 'Cagdas', 'Bid_name is not equal to products Bid_name')
+})
+client.test('Bids of the product is equal to response', function (){
+    client.assert(response.body.bids[0].bid_prize === '101', 'Bid_prize are not equal to products Bid_prize')
+})
+%}
+
+###
+GET {{host}}/api/products?name=nike
+Content-Type: application/json
+
+> {%
+var list = response.body
+client.test('Search result has been successful', function (){
+    for (var listKey in list) {
+    client.assert(list[listKey].name === 'nike', 'Search result has been unsuccessful')
+    }
+})
+client.test('Search result was not empty', function (){
+    client.assert(response.status === 200, 'Search result was empty')
+})
+%}
+
+
+###
+GET {{host}}/api/products?category=shoes
+Content-Type: application/json
+
+> {%
+var list = response.body
+client.test('Products are successfully categorized', function (){
+    for (var listKey in list) {
+    client.assert(list[listKey].category === 'shoes', 'Products are unsuccessfully categorized')
+    }
+})
+%}
+
+###
+GET {{host}}/api/products?size=11
+Content-Type: application/json
+
+> {% client.test("Filtering on size has been successful", function(){
+    client.log(response.body.toString());
+}); %}
+
+###
+GET {{host}}/api/products?color=red
+Content-Type: application/json
+
+> {% client.test("Filtering on color has been successful", function(){
+    client.assert(response.status !== 404, "Given color does not exist");
+}); %}
+
+###
+GET {{host}}/api/products?color=yellow&orderBy=asc
+Content-Type: application/json
+
+> {% client.test("List of products received successfully", function(){
+    client.assert(response.status !== 404, "Page does not exist");
+}); %}
+
+
+
