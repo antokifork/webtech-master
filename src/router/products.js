@@ -3,38 +3,40 @@ const router = express.Router()
 
 
 let products = [
-    {
-        "id": "1",
-        "name": "nike",
-        "size": "11",
-        "category": "shoes",
-        "auction_end": "2020/11/1-12:00",
-        "bids": [
-            {
-                "bid_name": "Cagdas",
-                "bid_prize": "101"
-            }
-        ]
-    },
-    {
-        "id": "2",
-        "name": "adidas",
-        "size": "11",
-        "category": "shoes",
-        "auction_end": "2020/11/1-12:00",
-        "bids": [
-            {
-
-            }
-        ]
-    }
+    // {
+    //     "id": "1",
+    //     "name": "nike",
+    //     "size": "11",
+    //     "category": "shoes",
+    //     "auction_end": "2020/11/1-12:00",
+    //     "bids": [
+    //         {
+    //             "bid_name": "Cagdas",
+    //             "bid_prize": "101"
+    //         }
+    //     ]
+    // },
+    // {
+    //     "id": "2",
+    //     "name": "adidas",
+    //     "size": "12",
+    //     "category": "shoes",
+    //     "auction_end": "2020/11/1-12:00",
+    //     "bids": [
+    //         {
+    //             "bid_name": "Anto",
+    //             "bid_pirze": "101"
+    //
+    //         }
+    //     ]
+    // }
 ]
 
 const productTemplate = ['id', 'name', 'size', 'category', 'auction_end', 'bids']
 
 router
     .get('/', (req, res) => {
-        let response = []
+        let response;
 
         const startTimeStamp = Date.now()
         setTimeout(() => {
