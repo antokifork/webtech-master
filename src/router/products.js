@@ -1,35 +1,35 @@
-const express = require('express');
+const express = require('express')
 const router = express.Router()
 
 
 let products = [
-    // {
-    //     "id": "1",
-    //     "name": "nike",
-    //     "size": "11",
-    //     "category": "shoes",
-    //     "auction_end": "2020/11/1-12:00",
-    //     "bids": [
-    //         {
-    //             "bid_name": "Cagdas",
-    //             "bid_prize": "101"
-    //         }
-    //     ]
-    // },
-    // {
-    //     "id": "2",
-    //     "name": "adidas",
-    //     "size": "12",
-    //     "category": "shoes",
-    //     "auction_end": "2020/11/1-12:00",
-    //     "bids": [
-    //         {
-    //             "bid_name": "Anto",
-    //             "bid_pirze": "101"
-    //
-    //         }
-    //     ]
-    // }
+    {
+        "id": "1",
+        "name": "nike",
+        "size": "11",
+        "category": "shoes",
+        "auction_end": "2020/11/1-12:00",
+        "bids": [
+            {
+                "bid_name": "Cagdas",
+                "bid_prize": "101"
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "name": "adidas",
+        "size": "12",
+        "category": "shoes",
+        "auction_end": "2020/11/1-12:00",
+        "bids": [
+            {
+                "bid_name": "Anto",
+                "bid_pirze": "101"
+
+            }
+        ]
+    }
 ]
 
 const productTemplate = ['id', 'name', 'size', 'category', 'auction_end', 'bids']
@@ -78,7 +78,7 @@ router
                 res.status(412).end(`Product ${productTemplate[a]} is missing a value`)
             }
         }
-        res.status(200).json(product).end("Products page")
+        res.status(200).json(product)
     })
 
 

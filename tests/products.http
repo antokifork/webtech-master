@@ -2,9 +2,9 @@
 GET {{host}}/api/products
 Content-Type: application/json
 
-> {% client.test("List of products received successfully", function(){
-    client.assert(response.status !== 404, "Page does not exist")
-    client.assert(response.status !== 503, "Server cannot handle the request")
+> {% client.test('List of products received successfully', function(){
+    client.assert(response.status !== 404, 'Page does not exist')
+    client.assert(response.status !== 503, 'Server cannot handle the request')
 }); %}
 
 ###

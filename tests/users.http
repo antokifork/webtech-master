@@ -1,0 +1,46 @@
+###
+GET {{host}}/api/users
+Content-Type: application/json
+
+> {%
+ client.test('List of users received successfully', function(){
+    client.assert(response.status !== 404, 'Page does not exist')
+    client.assert(response.status !== 503, 'Server cannot handle the request')
+});
+%}
+
+###
+GET {{host}}/api/users/1
+Content-Type: application/json
+
+> {%
+client.test('User with the given id has been retrieved successfully', function (){
+    client.assert(response.status === 200, 'User with given ID does not exist')
+})
+client.test('Given IDs properties does match', function (){
+    client.assert(response.body.Firstname === 'Cagdas', 'Firstname did not match');
+    client.assert(response.body.Lastname === 'Ozturk', 'Lastname did not match')
+    client.assert(response.body.Username === 'cagdas_ozturk', 'Username did not match')
+    client.assert(response.body.Roles === 'user admin', 'Roles did not match')
+})
+ %}
+
+###
+POST {{host}}/api/users
+Content-Type: application/json
+
+{
+  "id": "4",
+  "Firstname": "http",
+  "Lastname": "user",
+  "Username": "http_user",
+  "Roles" : "user",
+  "bids": []
+}
+
+> {%
+client.test('User has been added', function () {
+    client.assert(response.status === 201, "user had not been added")
+})
+
+%}
